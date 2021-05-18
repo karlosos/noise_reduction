@@ -5,12 +5,16 @@ import numpy as np
 
 
 def save_audio(path, signal, samplerate, subtype='PCM_24'):
+    """
+    Save signal to wav file with given samplerate
+    """
     sf.write(path, signal, samplerate, subtype)
 
 
 def split_signal(sound_data, frame_length, hop_length_frame):
-    """This function take an audio and split into several frame
-       in a numpy matrix of size (nb_frame,frame_length)"""
+    """
+    Splits signal into several parts (frames)
+    """
 
     sequence_sample_length = sound_data.shape[0]
 
@@ -22,8 +26,9 @@ def split_signal(sound_data, frame_length, hop_length_frame):
 
 
 def audio_files_to_numpy(audio_dir, list_audio_files, sample_rate, frame_length, hop_length_frame, min_duration):
-    """This function take audio files of a directory and merge them
-    in a numpy matrix of size (nb_frame,frame_length) for a sliding window of size hop_length_frame"""
+    """
+    Merge signals from folder into single numpy array
+    """
 
     list_sound_array = []
 
@@ -43,9 +48,9 @@ def audio_files_to_numpy(audio_dir, list_audio_files, sample_rate, frame_length,
 
 
 def blend_voice_with_noise(voice, noise, nb_samples, frame_length):
-    """This function takes as input numpy arrays representing frames
-    of voice sounds, noise sounds and the number of frames to be created
-    and return numpy arrays with voice randomly blend with noise"""
+    """
+    Combine clean voices with noise with random gain
+    """
 
     prod_voice = np.zeros((nb_samples, frame_length))
     prod_noise = np.zeros((nb_samples, frame_length))
@@ -63,8 +68,9 @@ def blend_voice_with_noise(voice, noise, nb_samples, frame_length):
 
 
 def audio_to_magnitude_db_and_phase(n_fft, hop_length_fft, audio):
-    """This function takes an audio and convert into spectrogram,
-       it returns the magnitude in dB and the phase"""
+    """
+    Generate spectrogram for amplitude and phase
+    """
 
     stftaudio = librosa.stft(audio, n_fft=n_fft, hop_length=hop_length_fft)
     stftaudio_magnitude, stftaudio_phase = librosa.magphase(stftaudio)
@@ -76,10 +82,9 @@ def audio_to_magnitude_db_and_phase(n_fft, hop_length_fft, audio):
 
 
 def numpy_audio_to_matrix_spectrogram(numpy_audio, dim_square_spec, n_fft, hop_length_fft):
-    """This function takes as input a numpy audi of size (nb_frame,frame_length), and return
-    a numpy containing the matrix spectrogram for amplitude in dB and phase. It will have the size
-    (nb_frame,dim_square_spec,dim_square_spec)"""
-
+    """
+    Convert combined numpy signal to spectogram for amplitude and phase
+    """
     nb_audio = numpy_audio.shape[0]
 
     m_mag_db = np.zeros((nb_audio, dim_square_spec, dim_square_spec))
