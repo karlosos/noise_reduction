@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 ### Data preparation
 
-Data was downloaded using Google Colab notebook that is available in `./notebooks/download_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing). You can download prepared data [here](https://drive.google.com/file/d/1-3XTuOUfU_xkgXZJgMrc4QZ_-ElvNrjs/view?usp=sharing) for development consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
+Data was downloaded and prepared using Google Colab notebook that is available in `./notebooks/prepare_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing). You can download prepared data [here](https://drive.google.com/file/d/1-3XTuOUfU_xkgXZJgMrc4QZ_-ElvNrjs/view?usp=sharing) for development consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
 Place `data/` folder into root of this repository.
 
 ## References
