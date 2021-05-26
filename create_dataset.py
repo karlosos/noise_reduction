@@ -4,6 +4,7 @@ from signal_utils import save_audio
 from signal_utils import audio_files_to_numpy
 from signal_utils import blend_voice_with_noise
 from signal_utils import numpy_audio_to_matrix_spectrogram
+import argparse
 
 
 def make_dir(path):
@@ -87,5 +88,18 @@ def create_data(clean_voice_path, noise_path, output_timeseries_path, output_sou
 
 if __name__ == '__main__':
     prepare_folders()
-    # create_data_from_folder("train")
-    create_data_from_folder("test")
+
+    parser = argparse.ArgumentParser(description='Prepare test or train dataset')
+    parser.add_argument('--test', action='store_true')
+    parser.add_argument('--train', action='store_true')
+    args = parser.parse_args()
+
+    test_flag = args.test
+    train_flag = args.train
+
+    if test_flag:
+        print("Creating test dataset")
+        create_data_from_folder("test")
+    if train_flag:
+        print("Creating train dataset")
+        create_data_from_folder("train")
