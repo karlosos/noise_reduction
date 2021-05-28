@@ -132,3 +132,4 @@ dmypy.json
 # Ignore dataset
 data/
 demo_data/
+.vscode
