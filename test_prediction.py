@@ -1,17 +1,17 @@
 from prediction_denoise import prediction
 
 
-def predict(name_model='model_unet', audio_input_prediction='noisy_voice_long.wav',
-            audio_output_prediction='denoise_t2.wav', sr=8000):
+def predict(name_model='model_unet', audio_input_prediction='noisy_voice_bells28.wav',
+            audio_output_prediction='val_voice_bells28.wav', sr=8000):
     # Example: python main.py --mode="prediction"
     # path to find pre-trained weights / save models
     weights_path = './data/weights'
     # pre trained model
     name_model = name_model
     # directory where read noisy sound to denoise
-    audio_dir_prediction = './demo_data/test'
+    audio_dir_prediction = './data/validation/noisy_voice'
     # directory to save the denoise sound
-    dir_save_prediction = './demo_data/save_predictions/'
+    dir_save_prediction = './data/validation/save_predictions/'
     # Name noisy sound file to denoise
     audio_input_prediction = [audio_input_prediction]
     # Name of denoised sound file to save
@@ -27,6 +27,7 @@ def predict(name_model='model_unet', audio_input_prediction='noisy_voice_long.wa
     # nb of points for fft(for spectrogram computation)
     n_fft = 255
     # hop length for fft
+    # hop_length_fft = 63
     hop_length_fft = 63
 
     prediction(weights_path, name_model, audio_dir_prediction, dir_save_prediction, audio_input_prediction,
