@@ -52,6 +52,10 @@ pip install -r requirements.txt
 Data was downloaded and prepared using Google Colab notebook that is available in `./notebooks/prepare_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing). You can download prepared data [here](https://drive.google.com/file/d/1-3XTuOUfU_xkgXZJgMrc4QZ_-ElvNrjs/view?usp=sharing) for development consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
 Place `data/` folder into root of this repository.
 
+### Data presentation
+
+Data visualisation and comparision is available in `./notebooks/presentation_data.ipynb` or [here](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/presentation_data.ipynb).
+
 ## References
 
 1. [[jansson2017singing]](https://ejhumphrey.com/assets/pdf/jansson2017singing.pdf) Jansson, Andreas, Eric J. Humphrey, Nicola Montecchio, Rachel M. Bittner, Aparna Kumar and Tillman Weyde. **Singing Voice Separation with Deep U-Net Convolutional Networks. ISMIR (2017).**
