@@ -49,8 +49,20 @@ pip install -r requirements.txt
 
 ### Data preparation
 
-Data was downloaded and prepared using Google Colab notebook that is available in `./notebooks/prepare_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing). You can download prepared data [here](https://drive.google.com/file/d/1-3XTuOUfU_xkgXZJgMrc4QZ_-ElvNrjs/view?usp=sharing) for development consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
+Data was downloaded and prepared using Google Colab notebook that is available in `./notebooks/prepare_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing). Training data is not available for download as it took too much space on Google Drive. We created our dataset consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
 Place `data/` folder into root of this repository.
+
+### Training
+
+Training was done using Google Colab and notebook that is available in './notebooks/training.ipynb` or [here](https://colab.research.google.com/drive/1pJW6Tkqz56ZUqv7Nnzo7UBULBf8U7b_n#scrollTo=2letUDbSxQyn). Training should be done in few iterations as Google is limiting available disk space. Training was done using Tensorflow and unet model. 
+
+Goal of the model is to recreate noise spectrogram. Exemplary test and predicted spectrograms are shown below:
+
+<img src="https://i.imgur.com/68mg7NW.png" width="350px" />
+
+### Denoising
+
+Denoising is done by subtracting input noisy voice spectrogram and predicted noise spectrogram. From clean spectrogram we can recreate timeseries and sound with inverse Short Time Fourier transform (iSTFT). This process is implemented in `prediction_denoise.py`.
 
 ### Data presentation
 
