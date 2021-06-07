@@ -25,13 +25,13 @@ def prepare_folders():
     make_dir('./data/test/spectogram/')
 
 
-def create_data_from_folder(data_type):
+def create_data_from_folder(data_type, nb_samples=1000):
     clean_voice_path = f"./data/{data_type}/clean_voice/"
     noise_path = f"./data/{data_type}/noise/"
     output_timeseries_path = f"./data/{data_type}/timeseries/"
     output_sound_path = f"./data/{data_type}/combined_sound/"
     output_spectogram = f"./data/{data_type}/spectogram/"
-    create_data(clean_voice_path, noise_path, output_timeseries_path, output_sound_path, output_spectogram)
+    create_data(clean_voice_path, noise_path, output_timeseries_path, output_sound_path, output_spectogram, nb_samples=nb_samples)
 
 
 def create_data(clean_voice_path, noise_path, output_timeseries_path, output_sound_path, output_spectogram_path,
@@ -92,14 +92,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Prepare test or train dataset')
     parser.add_argument('--test', action='store_true')
     parser.add_argument('--train', action='store_true')
+    parser.add_argument('--nb_samples', type=int, default=1000)
     args = parser.parse_args()
 
     test_flag = args.test
     train_flag = args.train
+    nb_samples = args.nb_samples
 
     if test_flag:
         print("Creating test dataset")
-        create_data_from_folder("test")
+        create_data_from_folder("test", nb_samples=nb_samples)
     if train_flag:
         print("Creating train dataset")
-        create_data_from_folder("train")
+        create_data_from_folder("train", nb_samples=nb_samples)
