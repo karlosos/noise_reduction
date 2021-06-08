@@ -66,7 +66,7 @@ Denoising is done by subtracting input noisy voice spectrogram and predicted noi
 
 ### Denoised data presentation
 
-Data visualisation and comparision is available in `./notebooks/denoising_presentation.ipynb` or [here](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.ipynb).
+Data visualisation and comparision is available in `./notebooks/denoising_presentation.ipynb` or [here](https://htmlpreview.github.io/?https://github.com/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.html).
 
 ## References
 
