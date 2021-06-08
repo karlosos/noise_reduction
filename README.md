@@ -64,9 +64,9 @@ Goal of the model is to recreate noise spectrogram. Exemplary test and predicted
 
 Denoising is done by subtracting input noisy voice spectrogram and predicted noise spectrogram. From clean spectrogram we can recreate timeseries and sound with inverse Short Time Fourier transform (iSTFT). This process is implemented in `prediction_denoise.py`.
 
-### Data presentation
+### Denoised data presentation
 
-Data visualisation and comparision is available in `./notebooks/presentation_data.ipynb` or [here](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/presentation_data.ipynb).
+Data visualisation and comparision is available in `./notebooks/denoising_presentation.ipynb` or [here](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.ipynb).
 
 ## References
 
