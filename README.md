@@ -47,14 +47,22 @@ Install requirements:
 pip install -r requirements.txt
 ```
 
+Saving notebooks to html was done with following command:
+
+```
+jupyter nbconvert --to html notebooks/denoising_presentation.ipynb
+```
+
+Example html output can be accessed trough [htmlpreview.github.io](https://htmlpreview.github.io/?https://github.com/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.html).
+
 ### Data preparation
 
-Data was downloaded and prepared using Google Colab notebook that is available in `./notebooks/prepare_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing). Training data is not available for download as it took too much space on Google Drive. We created our dataset consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
+Data was downloaded and prepared using Google Colab notebook that is available in `./notebooks/prepare_data.ipynb` or [here](https://colab.research.google.com/drive/1pHQtifx5qlcXN34fEFxfluW4m2D8nM2x?usp=sharing) or on [nbviewer](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/prepare_data.ipynb). Training data is not available for download as it took too much space on Google Drive. We created our dataset consisting of `dev-clean.tar.gz` (development set from LibriSpeech) and noises from ESC-50 from 3 categories (keyboard typing, mouse clicking, birds chirping).
 Place `data/` folder into root of this repository.
 
 ### Training
 
-Training was done using Google Colab and notebook that is available in './notebooks/training.ipynb` or [here](https://colab.research.google.com/drive/1pJW6Tkqz56ZUqv7Nnzo7UBULBf8U7b_n#scrollTo=2letUDbSxQyn). Training should be done in few iterations as Google is limiting available disk space. Training was done using Tensorflow and unet model. 
+Training was done using Google Colab and notebook that is available in `./notebooks/training.ipynb` or [here](https://colab.research.google.com/drive/1pJW6Tkqz56ZUqv7Nnzo7UBULBf8U7b_n#scrollTo=2letUDbSxQyn) or on [nbviewer](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/training.ipynb). Training should be done in few iterations as Google is limiting available disk space. Training was done using Tensorflow and unet model. 
 
 Goal of the model is to recreate noise spectrogram. Exemplary test and predicted spectrograms are shown below:
 
@@ -66,11 +74,14 @@ Denoising is done by subtracting input noisy voice spectrogram and predicted noi
 
 ### Denoised data presentation
 
-Data visualisation and comparision is available in `./notebooks/denoising_presentation.ipynb` or [here](https://htmlpreview.github.io/?https://github.com/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.html).
+Data visualisation and comparision is available in `./notebooks/denoising_presentation.ipynb` or [here](https://htmlpreview.github.io/?https://github.com/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.html) or on [nbviewer](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/denoising_presentation.ipynb).
+
+We have tested real data with keyboard typing, mouse clicking and birds chirping noises.
 
 ## References
 
 1. [[jansson2017singing]](https://ejhumphrey.com/assets/pdf/jansson2017singing.pdf) Jansson, Andreas, Eric J. Humphrey, Nicola Montecchio, Rachel M. Bittner, Aparna Kumar and Tillman Weyde. **Singing Voice Separation with Deep U-Net Convolutional Networks. ISMIR (2017).**
+
 
 ## Contributors
 
