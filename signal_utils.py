@@ -2,6 +2,8 @@ import librosa
 import soundfile as sf
 import os
 import numpy as np
+import math
+import scipy.signal
 
 
 def save_audio(path, signal, samplerate, subtype='PCM_24'):
@@ -134,3 +136,34 @@ def inv_scaled_ou(matrix_spec):
     "inverse global scaling apply to noise models spectrograms"
     matrix_spec = matrix_spec * 82 + 6
     return matrix_spec
+
+
+def rms(signal):
+    rms_signal = math.sqrt(np.mean(signal * signal))
+    return rms_signal
+
+
+def psnr(original, compressed):
+    mse = np.mean((original - compressed) ** 2)
+    if mse == 0:
+        return 100
+    max_org = max(original)
+    max_com = max(compressed)
+    max_pixel = max(max_org, max_com)
+    val = 20 * math.log10(max_pixel / math.sqrt(mse))
+    return round(val, 2)
+
+
+def snr_db(signal, noise):
+    signal_rms = rms(signal)
+    noise_rms = rms(noise)
+    snr = signal_rms/noise_rms
+    snr_log = 10 * math.log10(snr)
+    return round(snr_log, 2)
+
+
+def apply_noise(path, fname, s, noise, fs):
+    signal_noised = tuple(map(lambda i, j: i + j, s, noise[:s.shape[0]]))
+
+    sf.write(f'{path}{fname}', signal_noised, fs)
+    return signal_noised
