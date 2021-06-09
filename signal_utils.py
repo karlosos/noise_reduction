@@ -149,7 +149,8 @@ def psnr(original, compressed):
         return 100
     max_org = max(original)
     max_com = max(compressed)
-    max_pixel = max(max_org, max_com)
+    # max_pixel = max(max_org, max_com)
+    max_pixel = 1
     val = 20 * math.log10(max_pixel / math.sqrt(mse))
     return round(val, 2)
 
@@ -158,12 +159,11 @@ def snr_db(signal, noise):
     signal_rms = rms(signal)
     noise_rms = rms(noise)
     snr = signal_rms/noise_rms
-    snr_log = 10 * math.log10(snr)
+    snr_log = 20 * math.log10(snr)
     return round(snr_log, 2)
 
 
 def apply_noise(path, fname, s, noise, fs):
-    signal_noised = tuple(map(lambda i, j: i + j, s, noise[:s.shape[0]]))
-
-    sf.write(f'{path}{fname}', signal_noised, fs)
-    return signal_noised
+    signal_noised = np.array(tuple(map(lambda i, j: i + j, s, noise[:s.shape[0]])))
+    signal_norm = librosa.util.normalize(signal_noised)
+    sf.write(f'{path}{fname}', signal_norm, fs)
