@@ -130,7 +130,7 @@ dmypy.json
 .idea/
 
 # Ignore dataset
-data/
+# data/
 demo_data/
 .vscode
 data/test
