@@ -6,50 +6,88 @@ from signal_utils import audio_files_to_numpy, numpy_audio_to_matrix_spectrogram
 
 
 def prediction(weights_path, name_model, audio_dir_prediction, dir_save_prediction, audio_input_prediction,
-audio_output_prediction, sample_rate, min_duration, frame_length, hop_length_frame, n_fft, hop_length_fft):
+               audio_output_prediction, sample_rate, min_duration, frame_length, jump_length_frame, n_fft,
+               jump_length_fft):
     """ This function takes as input pretrained weights, noisy voice sound to denoise, predict
     the denoise sound and save it to disk.
     """
 
     # load json and create model
-    json_file = open(weights_path+'/'+name_model+'.json', 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
+    model_json = open(f'{weights_path}+/+{name_model}+.json', 'r')
+    loaded_model_json = model_json.read()
+    model_json.close()
     loaded_model = model_from_json(loaded_model_json)
+
     # load weights into new model
-    loaded_model.load_weights(weights_path+'/'+name_model+'.h5')
+    loaded_model.load_weights(f'{weights_path}+/+{name_model}+.h5')
     print("Loaded model from disk")
 
     # Extracting noise and voice from folder and convert to numpy
     audio = audio_files_to_numpy(audio_dir_prediction, audio_input_prediction, sample_rate,
-                                 frame_length, hop_length_frame, min_duration)
+                                 frame_length, jump_length_frame, min_duration)
 
-    #Dimensions of squared spectrogram
+    # Dimensions of squared spectrogram
     dim_square_spec = int(n_fft / 2) + 1
     print(dim_square_spec)
 
     # Create Amplitude and phase of the sounds
-    m_amp_db_audio,  m_pha_audio = numpy_audio_to_matrix_spectrogram(
-        audio, dim_square_spec, n_fft, hop_length_fft)
+    audio_amplitude, audio_phase = numpy_audio_to_matrix_spectrogram(
+        audio, dim_square_spec, n_fft, jump_length_fft)
 
-    #global scaling to have distribution -1/1
-    X_in = scaled_in(m_amp_db_audio)
-    #Reshape for prediction
-    X_in = X_in.reshape(X_in.shape[0],X_in.shape[1],X_in.shape[2],1)
-    #Prediction using loaded network
-    X_pred = loaded_model.predict(X_in)
-    #Rescale back the noise model
-    inv_sca_X_pred = inv_scaled_ou(X_pred)
-    #Remove noise model from noisy speech
-    X_denoise = m_amp_db_audio - inv_sca_X_pred[:,:,:,0]
-    #Reconstruct audio from denoised spectrogram and phase
-    print(X_denoise.shape)
-    print(m_pha_audio.shape)
+    # global scaling to have distribution -1/1
+    X_scaled = scaled_in(audio_amplitude)
+
+    # Reshape for prediction
+    X_scaled = X_scaled.reshape(X_scaled.shape[0],X_scaled.shape[1],X_scaled.shape[2],1)
+
+    # Prediction using loaded network
+    X_pred = loaded_model.predict(X_scaled)
+
+    # Rescale back the noise model
+    X_pred_rescaled = inv_scaled_ou(X_pred)
+
+    # Remove noise model from noisy speech
+    X_denoised = audio_amplitude - X_pred_rescaled[:,:,:,0]
+
+    # Reconstruct audio from denoised spectrogram and phase
+    print(X_denoised.shape)
+    print(audio_phase.shape)
     print(frame_length)
-    print(hop_length_fft)
-    audio_denoise_recons = matrix_spectrogram_to_numpy_audio(X_denoise, m_pha_audio, frame_length, hop_length_fft)
-    #Number of frames
-    nb_samples = audio_denoise_recons.shape[0]
-    #Save all frames in one file
-    denoise_long = audio_denoise_recons.reshape(1, nb_samples * frame_length)*10
+    print(jump_length_fft)
+
+    audio_denoised = matrix_spectrogram_to_numpy_audio(X_denoised, audio_phase, frame_length, jump_length_fft)
+    # Number of frames
+    samples_ct = audio_denoised.shape[0]
+    # Save all frames in one file
+    denoise_long = audio_denoised.reshape(1, samples_ct * frame_length)*10
     save_audio(dir_save_prediction + audio_output_prediction, denoise_long[0, :], sample_rate)
+
+
+def predict(audio_input_prediction, audio_output_prediction, sr=8000, name_model='model_unet',
+            path='..\\data\\validation\\'):
+    # path to find pre-trained weights / save models
+    weights_path = '..\\data\\weights'
+    # pre trained model
+    name_model = name_model
+    # directory where read noisy sound to denoise
+    audio_dir_prediction = f'{path}noisy_voice'
+    # directory to save the denoise sound
+    dir_save_prediction = f'{path}save_prediction\\'
+    # Name noisy sound file to denoise
+    audio_input_prediction = [audio_input_prediction]
+    # Name of denoised sound file to save
+    audio_output_prediction = audio_output_prediction
+    # Minimum duration of audio files to consider
+    min_duration = 1.0
+    # Frame length for training data
+    frame_length = 8064
+    # jump length for sound files
+    jump_length_frame = 8064
+    # nb of points for fft(for spectrogram computation)
+    n_fft = 255
+    # jump length for fft
+    jump_length_fft = 63
+
+    prediction(weights_path, name_model, audio_dir_prediction, dir_save_prediction, audio_input_prediction,
+               audio_output_prediction, sr, min_duration, frame_length, jump_length_frame, n_fft,
+               jump_length_fft)
