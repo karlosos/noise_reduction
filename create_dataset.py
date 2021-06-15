@@ -62,15 +62,15 @@ def create_data(clean_voice_path, noise_path, output_timeseries_path, output_sou
     save_audio(output_sound_path + 'noise_long.wav', noise_long[0, :], sample_rate)
 
     # Spectrogram dimensions
-    dim_square_spec = int(n_fft / 2) + 1
+    spectrogram_dimension = int(n_fft / 2) + 1
 
     # Create spectrograms
     m_amp_db_voice, m_pha_voice = numpy_audio_to_matrix_spectrogram(
-        prod_voice, dim_square_spec, n_fft, jump_length_fft)
+        prod_voice, spectrogram_dimension, n_fft, jump_length_fft)
     m_amp_db_noise, m_pha_noise = numpy_audio_to_matrix_spectrogram(
-        prod_noise, dim_square_spec, n_fft, jump_length_fft)
+        prod_noise, spectrogram_dimension, n_fft, jump_length_fft)
     m_amp_db_noisy_voice, m_pha_noisy_voice = numpy_audio_to_matrix_spectrogram(
-        prod_noisy_voice, dim_square_spec, n_fft, jump_length_fft)
+        prod_noisy_voice, spectrogram_dimension, n_fft, jump_length_fft)
 
     # Save to disk for training/testing
     np.save(output_timeseries_path + 'voice_timeserie', prod_voice)
