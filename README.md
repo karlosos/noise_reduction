@@ -78,6 +78,12 @@ Data visualisation and comparision is available in `./notebooks/denoising_presen
 
 We have tested real data with keyboard typing, mouse clicking and birds chirping noises.
 
+### Experiments
+
+We have tested how increasing or decreasing noise amplitude (changing signal to noise ratio) influence accuracy of the denoised file (as a comparison of predicted to clean signal using PSNR metric).
+
+<img src="https://i.imgur.com/xJmVThR.png" width="400px"/>
+
 ## References
 
 1. [[jansson2017singing]](https://ejhumphrey.com/assets/pdf/jansson2017singing.pdf) Jansson, Andreas, Eric J. Humphrey, Nicola Montecchio, Rachel M. Bittner, Aparna Kumar and Tillman Weyde. **Singing Voice Separation with Deep U-Net Convolutional Networks. ISMIR (2017).**
