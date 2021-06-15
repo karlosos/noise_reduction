@@ -13,13 +13,13 @@ def prediction(weights_path, name_model, audio_dir_prediction, dir_save_predicti
     """
 
     # load json and create model
-    model_json = open(f'{weights_path}+/+{name_model}+.json', 'r')
+    model_json = open(f'{weights_path}/{name_model}.json', 'r')
     loaded_model_json = model_json.read()
     model_json.close()
     loaded_model = model_from_json(loaded_model_json)
 
     # load weights into new model
-    loaded_model.load_weights(f'{weights_path}+/+{name_model}+.h5')
+    loaded_model.load_weights(f'{weights_path}/{name_model}.h5')
     print("Loaded model from disk")
 
     # Extracting noise and voice from folder and convert to numpy
