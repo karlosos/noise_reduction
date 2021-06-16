@@ -9,6 +9,8 @@ from signal_utils import (
     matrix_spectrogram_to_numpy_audio,
     save_audio,
 )
+import win32api
+
 
 weights_path = "./data/weights"
 # pre trained model
@@ -62,8 +64,14 @@ def print_sound(indata, outdata, frames, time, status):
         X_denoise, m_phase, frame_length, hop_length_fft
     )
 
-    outdata[:, 0] = audio_denoise_recons * 2
-    outdata[:, 1] = audio_denoise_recons * 2
+    if win32api.GetKeyState(0x01):
+        print('DENOISING ON')
+        outdata[:, 0] = audio_denoise_recons * 2
+        outdata[:, 1] = audio_denoise_recons * 2
+    else:
+        outdata[:, 0] = indata[:, 0]
+        outdata[:, 1] = indata[:, 0]
+        print('DENOISING OFF')
 
 
 with sd.Stream(samplerate=8000, blocksize=8064, callback=print_sound):
