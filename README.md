@@ -62,7 +62,7 @@ Place `data/` folder into root of this repository.
 
 ### Training
 
-Training was done using Google Colab and notebook that is available in `./notebooks/training.ipynb` or [here](https://colab.research.google.com/drive/1pJW6Tkqz56ZUqv7Nnzo7UBULBf8U7b_n#scrollTo=2letUDbSxQyn) or on [nbviewer](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/training.ipynb). Training should be done in few iterations as Google is limiting available disk space. Training was done using Tensorflow and unet model. 
+Training was done using Google Colab and notebook that is available in `./notebooks/training.ipynb` or [here](https://colab.research.google.com/drive/1pJW6Tkqz56ZUqv7Nnzo7UBULBf8U7b_n#scrollTo=2letUDbSxQyn) or on [nbviewer](https://nbviewer.jupyter.org/github/karlosos/noise_reduction/blob/main/notebooks/training.ipynb). Training should be done in few iterations as Google is limiting available disk space. Training was done using Tensorflow and unet model. You can download weights from [this Google Drive folder](https://drive.google.com/drive/u/0/folders/15RPT6YZPFz8B07-NGq6_ktI7orD63eLo).
 
 Goal of the model is to recreate noise spectrogram. Exemplary test and predicted spectrograms are shown below:
 
